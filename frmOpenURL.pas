@@ -19,7 +19,6 @@ type
     { Private declarations }
     FURL : String;
     FProgramPathList : TStringList;
-    reg : TRegistry;
     procedure LoadListBox(inKey: HKEY; inListbox: TListBox);
     procedure AddEdge(inListbox: TListBox);
   public
@@ -73,7 +72,6 @@ end;
 
 procedure TfrmBrowserChooser.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(reg);
   FreeAndNil(FProgramPathList);
 end;
 
@@ -81,45 +79,53 @@ procedure TfrmBrowserChooser.LoadListBox(inKey : HKEY;inListbox:TListBox);
 var
   names : TStringList;
   i : Integer;
+  reg : TRegistry;
   regName : TRegistry;
   regOpen : TRegistry;
   listboxItem : TListboxItem;
   programPath : string;
 begin
-  reg := TRegistry.Create;
-  names := TStringList.Create;
-  reg.RootKey := inKey;
-  if reg.OpenKeyReadOnly('SOFTWARE\Clients\StartMenuInternet') then
-  begin
-    reg.GetKeyNames(names);
-    for i := 0 to names.Count - 1 do
+  reg := nil;
+  names := nil;
+  try
+    reg := TRegistry.Create;
+    names := TStringList.Create;
+    reg.RootKey := inKey;
+    if reg.OpenKeyReadOnly('SOFTWARE\Clients\StartMenuInternet') then
     begin
-      regName := nil;
-      regOpen := nil;
-      try
-        regName := TRegistry.Create;
-        regName.RootKey := inKey;
-        regOpen := TRegistry.Create;
-        regOpen.RootKey := inKey;
+      reg.GetKeyNames(names);
+      for i := 0 to names.Count - 1 do
+      begin
+        regName := nil;
+        regOpen := nil;
+        try
+          regName := TRegistry.Create;
+          regName.RootKey := inKey;
+          regOpen := TRegistry.Create;
+          regOpen.RootKey := inKey;
 
-        if regName.OpenKeyReadOnly('SOFTWARE\Clients\StartMenuInternet\'+names[i]) and
-           regOpen.OpenKeyReadOnly('SOFTWARE\Clients\StartMenuInternet\'+names[i]+'\Shell\Open\Command') then
-        begin
-          programPath := regOpen.ReadString('');
-          if FProgramPathList.IndexOf(programPath)<0 then
+          if regName.OpenKeyReadOnly('SOFTWARE\Clients\StartMenuInternet\'+names[i]) and
+             regOpen.OpenKeyReadOnly('SOFTWARE\Clients\StartMenuInternet\'+names[i]+'\Shell\Open\Command') then
           begin
-            listboxItem := TListBoxItem.Create(inListbox);
-            listboxItem.Text := regName.ReadString('');
-            listboxItem.TagString := programPath;
-            inListbox.AddObject(listboxItem);
-            FProgramPathList.Add(programPath);
+            programPath := regOpen.ReadString('');
+            if FProgramPathList.IndexOf(programPath)<0 then
+            begin
+              listboxItem := TListBoxItem.Create(inListbox);
+              listboxItem.Text := regName.ReadString('');
+              listboxItem.TagString := programPath;
+              inListbox.AddObject(listboxItem);
+              FProgramPathList.Add(programPath);
+            end;
           end;
+        finally
+          FreeAndNil(regName);
+          FreeAndNil(regOpen);
         end;
-      finally
-        FreeAndNil(regName);
-        FreeAndNil(regOpen);
       end;
     end;
+  finally
+    FreeAndNil(reg);
+    FreeAndNil(names);
   end;
 end;
 

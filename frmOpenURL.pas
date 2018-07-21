@@ -21,6 +21,7 @@ type
     FProgramPathList : TStringList;
     reg : TRegistry;
     procedure LoadListBox(inKey: HKEY; inListbox: TListBox);
+    procedure AddEdge(inListbox: TListBox);
   public
     { Public declarations }
     procedure OpenUrl(url:String);
@@ -46,11 +47,28 @@ begin
   end;
 end;
 
+procedure TfrmBrowserChooser.AddEdge(inListbox:TListBox);
+var
+  listboxItem : TListboxItem;
+  programPath : String;
+begin
+  listboxItem := TListBoxItem.Create(inListbox);
+  listboxItem.Text := 'Microsoft Edge';
+  programPath := 'shell:Appsfolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge';
+
+  listboxItem.TagString := programPath;
+  inListbox.AddObject(listboxItem);
+  FProgramPathList.Add(programPath);
+end;
+
 procedure TfrmBrowserChooser.FormCreate(Sender: TObject);
 begin
   FProgramPathList := TStringList.Create;
   LoadListBox(HKEY_CURRENT_USER,FBrowserListBox);
   LoadListBox(HKEY_LOCAL_MACHINE,FBrowserListBox);
+  OutputDebugString(PChar(TOSVersion.ToString));
+  if TOSVersion.Major >= 10 then  // Add Microsoft Edge if Windows 10
+    AddEdge(FBrowserListBox);
 end;
 
 procedure TfrmBrowserChooser.FormDestroy(Sender: TObject);

@@ -8,8 +8,9 @@ uses
   FMX.Controls.Presentation, FMX.StdCtrls;
 
 type
-  TForm2 = class(TForm)
+  TfrmBrowserChooseDemo = class(TForm)
     Button1: TButton;
+    Label1: TLabel;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -18,7 +19,7 @@ type
   end;
 
 var
-  Form2: TForm2;
+  frmBrowserChooseDemo: TfrmBrowserChooseDemo;
 
 implementation
 
@@ -26,7 +27,7 @@ implementation
 
 uses frmOpenURL;
 
-procedure TForm2.Button1Click(Sender: TObject);
+procedure TfrmBrowserChooseDemo.Button1Click(Sender: TObject);
 begin
   OpenUrl('https://www.tysontechnology.com.au');
 end;

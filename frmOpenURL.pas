@@ -130,6 +130,7 @@ var
 begin
   programPath := FBrowserListBox.Selected.TagString;
   ShellExecute(0,'open',PChar(programPath), PChar(FURL),'',SW_SHOWNORMAL);
+  Close;
 end;
 
 procedure TfrmBrowserChooser.OpenUrl(url: String);

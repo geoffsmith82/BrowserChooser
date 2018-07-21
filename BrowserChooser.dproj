@@ -320,7 +320,7 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="frmMain.pas">
-            <Form>Form2</Form>
+            <Form>frmBrowserChooseDemo</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

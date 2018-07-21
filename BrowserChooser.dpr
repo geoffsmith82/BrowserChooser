@@ -4,12 +4,12 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   frmOpenURL in 'frmOpenURL.pas' {frmBrowserChooser},
-  frmMain in 'frmMain.pas' {Form2};
+  frmMain in 'frmMain.pas' {frmBrowserChooseDemo};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TfrmBrowserChooseDemo, frmBrowserChooseDemo);
   Application.Run;
 end.

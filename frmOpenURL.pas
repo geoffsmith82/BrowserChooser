@@ -80,13 +80,12 @@ end;
 procedure TfrmBrowserChooser.LoadListBox(inKey : HKEY;inListbox:TListBox);
 var
   names : TStringList;
-  i: Integer;
+  i : Integer;
   regName : TRegistry;
   regOpen : TRegistry;
   listboxItem : TListboxItem;
   programPath : string;
 begin
-  FURL := 'https://www.test.com.au';
   reg := TRegistry.Create;
   names := TStringList.Create;
   reg.RootKey := inKey;

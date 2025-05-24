@@ -4,8 +4,8 @@ object frmBrowserChooser: TfrmBrowserChooser
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = Single
   Caption = 'Open URL'
-  ClientHeight = 367
-  ClientWidth = 349
+  ClientHeight = 368
+  ClientWidth = 350
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -13,22 +13,6 @@ object frmBrowserChooser: TfrmBrowserChooser
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   DesignerMasterStyle = 0
-  object FBrowserListBox: TListBox
-    Position.X = 16.000000000000000000
-    Position.Y = 48.000000000000000000
-    Size.Width = 321.000000000000000000
-    Size.Height = 289.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 0
-    OnDblClick = FBrowserListBoxDblClick
-    DisableFocusEffect = True
-    ItemHeight = 40.000000000000000000
-    DefaultItemStyles.ItemStyle = ''
-    DefaultItemStyles.GroupHeaderStyle = ''
-    DefaultItemStyles.GroupFooterStyle = ''
-    Viewport.Width = 317.000000000000000000
-    Viewport.Height = 285.000000000000000000
-  end
   object Label1: TLabel
     Position.X = 16.000000000000000000
     Position.Y = 16.000000000000000000
@@ -36,6 +20,27 @@ object frmBrowserChooser: TfrmBrowserChooser
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     Text = 'Select Browser to open URL with'
-    TabOrder = 1
+    TabOrder = 0
+  end
+  object FBrowserListBox: TListView
+    ItemAppearanceClassName = 'TImageListItemAppearance'
+    ItemEditAppearanceClassName = 'TImageListItemDeleteAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Images = ImageList1
+    Position.X = 24.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 305.000000000000000000
+    Size.Height = 289.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    StyleLookup = 'FBrowserListBoxStyle1'
+    OnClick = FBrowserListBoxDblClick
+  end
+  object ImageList1: TImageList
+    Source = <>
+    Destination = <>
+    Left = 200
+    Top = 256
   end
 end

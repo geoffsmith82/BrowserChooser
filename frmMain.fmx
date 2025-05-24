@@ -3,7 +3,7 @@ object frmBrowserChooseDemo: TfrmBrowserChooseDemo
   Top = 0
   Caption = 'Brower Chooser Demo Application'
   ClientHeight = 178
-  ClientWidth = 361
+  ClientWidth = 362
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -17,6 +17,7 @@ object frmBrowserChooseDemo: TfrmBrowserChooseDemo
     Size.PlatformDefault = False
     TabOrder = 0
     Text = 'Show Browser Chooser'
+    TextSettings.Trimming = None
     OnClick = Button1Click
   end
   object Label1: TLabel
